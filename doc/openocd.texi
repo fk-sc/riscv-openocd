@@ -11356,16 +11356,18 @@ This command can be used to change the memory access methods if the default
 behavior is not suitable for a particular target.
 @end deffn
 
-@deffn {Command} {riscv set_enable_virtual} on|off
-When on, memory accesses are performed on physical or virtual memory depending
-on the current system configuration. When off (default), all memory accessses are performed
-on physical memory.
-@end deffn
-
-@deffn {Command} {riscv set_enable_virt2phys} on|off
-When on (default), memory accesses are performed on physical or virtual memory
-depending on the current satp configuration. When off, all memory accessses are
-performed on physical memory.
+@deffn {Command} {riscv mmu_translation_driver} [@option{hw}|@option{sw}|@option{off}]
+Configure address translation driver:
+@itemize @bullet
+@item @option{sw} - virtual address is translated explicitly by OpenOCD using
+traversal of page table entries (by performing physical memory accesses to
+read the respected entries).
+@item @option{hw} - virtual address is translated implicitly by hardware
+(virtual memory access fails with error if hardware doesn't
+support the necessary functionality).
+@item @option{off} - virtual address is not translated (assume identity mapping).
+@end itemize
+Returns current translation driver if called without arguments.
 @end deffn
 
 @deffn {Command} {riscv resume_order} normal|reversed
